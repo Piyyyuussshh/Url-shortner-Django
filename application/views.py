@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import uuid
 from .models import Url
 # Create your views here.
@@ -16,3 +16,8 @@ def create(req):
         new_url = Url(link=link, uuid=uid)
         new_url.save()
         return HttpResponse(uid)
+
+
+def reach(req, pk):
+    url_detail = Url.objects.get(uuid=pk)
+    return redirect(url_detail.link)
